@@ -51,7 +51,7 @@ export const InnerContainer = styled.div`
 
 export const Title = styled.h1`
   margin-top: 0;
-  margin-bottom: 40px;
+  margin-bottom: 160px;
   font-size: 2rem;
   font-weight: 900;
 

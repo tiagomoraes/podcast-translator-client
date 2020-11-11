@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Form from '../../components/Form';
+
 import {
   Container,
   WhiteContainer,
@@ -8,12 +10,17 @@ import {
   Title,
 } from './Home.styles';
 
-export default function Home() {
+function Home() {
+  const handleSubmit = (files) => {
+    console.log(files);
+  };
+
   return (
     <Container>
       <WhiteContainer>
         <InnerContainer>
           <Title>Podcast Translator.</Title>
+          <Form onSubmit={handleSubmit} />
         </InnerContainer>
       </WhiteContainer>
       <PinkContainer>
@@ -22,3 +29,5 @@ export default function Home() {
     </Container>
   );
 }
+
+export default Home;
