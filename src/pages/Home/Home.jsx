@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Form from '../../components/Form';
 
@@ -6,13 +6,24 @@ import {
   Container,
   WhiteContainer,
   InnerContainer,
-  PinkContainer,
+  StatusContainer,
+  LoadingAnimation,
+  DoneCheck,
+  DoneDescription,
+  EmailHighlight,
   Title,
+  PinkContainer,
+  EmailAdvice,
+  Bold,
 } from './Home.styles';
 
 function Home() {
-  const handleSubmit = (files) => {
-    console.log(files);
+  const [status, setStatus] = useState('done');
+  // const [response, setResponse] = useState(null);
+
+  const handleSubmit = (data) => {
+    console.log(data);
+    setStatus('loading');
   };
 
   return (
@@ -20,11 +31,44 @@ function Home() {
       <WhiteContainer>
         <InnerContainer>
           <Title>Podcast Translator.</Title>
-          <Form onSubmit={handleSubmit} />
+          {status === 'empty' && (
+            <Form onSubmit={handleSubmit} />
+          )}
+          {status === 'loading' && (
+            <StatusContainer>
+              <LoadingAnimation />
+              Fazendo upload do seu podcast...
+            </StatusContainer>
+          )}
+          {status === 'done' && (
+            <StatusContainer>
+              <DoneCheck />
+              Seu podcast está sendo traduzido!
+              <DoneDescription>
+                Quando a tradução acabar, enviaremos um email para
+                {' '}
+                <EmailHighlight>
+                  tiago3902@gmail.com
+                </EmailHighlight>
+                {' '}
+                com o resultado da tradução.
+              </DoneDescription>
+            </StatusContainer>
+          )}
         </InnerContainer>
       </WhiteContainer>
       <PinkContainer>
-        oi
+        {status === 'done' ? (
+          <EmailAdvice>
+            <Bold>Fique tranquilo! </Bold>
+            Após a conclusão do processo de tradução,
+            você receberá um link no seu e-mail para baixar o podcast.
+          </EmailAdvice>
+        ) : (
+          <EmailAdvice>
+            Faça upload de um arquivo para traduzir o seu podcast.
+          </EmailAdvice>
+        )}
       </PinkContainer>
     </Container>
   );
