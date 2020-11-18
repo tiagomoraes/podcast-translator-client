@@ -97,6 +97,10 @@ export const DoneCheck = styled(Done)`
   margin-bottom: 30px;
 `;
 
+export const DoneRetry = styled.div`
+  margin-top: 30px;
+`;
+
 export const DoneDescription = styled.p`
   font-size: 1.1rem;
   font-weight: 400;

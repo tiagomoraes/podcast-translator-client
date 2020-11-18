@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Form from '../../components/Form';
+import Button from '../../components/Button';
 
 import {
   Container,
@@ -10,6 +11,7 @@ import {
   LoadingAnimation,
   DoneCheck,
   DoneDescription,
+  DoneRetry,
   EmailHighlight,
   Title,
   PinkContainer,
@@ -18,12 +20,17 @@ import {
 } from './Home.styles';
 
 function Home() {
-  const [status, setStatus] = useState('done');
-  // const [response, setResponse] = useState(null);
+  const [status, setStatus] = useState('empty');
+  const [response] = useState({
+    email: 'tiago3902@gmail.com',
+  });
 
   const handleSubmit = (data) => {
     console.log(data);
     setStatus('loading');
+    setTimeout(() => {
+      setStatus('done');
+    }, 4000);
   };
 
   return (
@@ -48,11 +55,17 @@ function Home() {
                 Quando a tradução acabar, enviaremos um email para
                 {' '}
                 <EmailHighlight>
-                  tiago3902@gmail.com
+                  {response.email}
                 </EmailHighlight>
                 {' '}
                 com o resultado da tradução.
               </DoneDescription>
+              <DoneRetry>
+                <Button
+                  text="Traduzir novamente"
+                  onClick={() => setStatus('empty')}
+                />
+              </DoneRetry>
             </StatusContainer>
           )}
         </InnerContainer>
