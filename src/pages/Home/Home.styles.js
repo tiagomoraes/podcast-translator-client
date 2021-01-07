@@ -6,12 +6,8 @@ import { ReactComponent as Done } from '../../assets/check.svg';
 
 export const Container = styled.div`
   width: 100%;
-  min-height: 100vh;
 
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
 `;
 
 export const WhiteContainer = styled.div`
@@ -28,14 +24,15 @@ export const WhiteContainer = styled.div`
 `;
 
 export const PinkContainer = styled.div`
-  height: 100%;
   min-height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
   width: 48%;
-
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 
   background: linear-gradient(198.83deg, ${colors.pink} 8.35%, ${colors.purple} 78.29%);
 `;

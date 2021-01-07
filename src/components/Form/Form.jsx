@@ -36,7 +36,7 @@ function Form(props) {
     // fileRejections,
     getRootProps,
     getInputProps,
-  } = useDropzone({ multiple: false });
+  } = useDropzone({ multiple: false, accept: '.wav' });
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);

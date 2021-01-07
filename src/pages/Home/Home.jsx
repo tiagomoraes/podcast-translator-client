@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import api from '../../services/api';
 
 import Form from '../../components/Form';
 import Button from '../../components/Button';
@@ -12,7 +13,6 @@ import {
   DoneCheck,
   DoneDescription,
   DoneRetry,
-  EmailHighlight,
   Title,
   PinkContainer,
   EmailAdvice,
@@ -21,16 +21,34 @@ import {
 
 function Home() {
   const [status, setStatus] = useState('empty');
-  const [response] = useState({
-    email: 'tiago3902@gmail.com',
-  });
 
-  const handleSubmit = (data) => {
-    console.log(data);
+  const handleSubmit = async (data) => {
     setStatus('loading');
-    setTimeout(() => {
-      setStatus('done');
-    }, 4000);
+    console.log(data);
+
+    const formData = new FormData();
+    formData.append('podcast_file', data.files[0]);
+    formData.append('email', data.email);
+
+    const params = {
+      headers: {
+        'Content-Type': 'multipart/form-data;',
+      },
+    };
+
+    try {
+      const res = await api.patch('/audio/upload', formData, params);
+      if (res.status === 200) {
+        setStatus('done');
+        return;
+      }
+
+      setStatus('error');
+    } catch (error) {
+      setStatus(error);
+    }
+
+    setStatus('done');
   };
 
   return (
@@ -53,11 +71,7 @@ function Home() {
               Seu podcast está sendo traduzido!
               <DoneDescription>
                 Quando a tradução acabar, enviaremos um email para
-                {' '}
-                <EmailHighlight>
-                  {response.email}
-                </EmailHighlight>
-                {' '}
+                o e-mail cadastrado anteriormente
                 com o resultado da tradução.
               </DoneDescription>
               <DoneRetry>
